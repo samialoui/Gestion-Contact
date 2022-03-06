@@ -1,0 +1,133 @@
+<form #f="ngForm" (ngSubmit)="f.form.valid && valider()">
+<table>
+
+  <tr>
+    <td>Nom</td>
+    <td>
+      <input pInputText [(ngModel)]="user.nom"
+             name="nom" required #nom="ngModel">
+
+      <small *ngIf="f.submitted && nom.invalid"
+             class="p-error">Nom réquis</small>
+    </td>
+  </tr>
+
+  <tr>
+    <td>Prénom</td>
+    <td>
+      <input pInputText [(ngModel)]="user.prenom" name="prenom"
+      #prenom="ngModel" required>
+
+      <small *ngIf="f.submitted && prenom.invalid"
+             class="p-error">Prénom réquis</small>
+    </td>
+  </tr>
+
+  <tr>
+    <td>Email</td>
+    <td>
+      <input pKeyFilter="email" pInputText
+             [(ngModel)]="user.email" name="email"
+      #email="ngModel" required email>
+
+      <small *ngIf="f.submitted && email.invalid"
+             class="p-error">
+        <span *ngIf="email?.errors?.required">Email réquis</span>
+        <span *ngIf="email?.errors?.email">Email Invalid</span>
+
+      </small>
+    </td>
+  </tr>
+
+  <tr>
+    <td>Nom d'utlisateur</td>
+    <td>
+      <input pInputText [(ngModel)]="user.username"
+             name="username" #username="ngModel" required>
+      <small *ngIf="f.submitted && username.invalid"
+             class="p-error">Nom d'utilisateur réquis</small>
+    </td>
+  </tr>
+
+
+
+  <tr  *ngIf="!idUser">
+    <td>Mot de passe</td>
+    <td>
+      <p-password [(ngModel)]="user.password" name="password"
+                  [feedback]="false"
+                  [toggleMask]="true" required
+                  #pwd="ngModel" ></p-password>
+
+      <small *ngIf="f.submitted && pwd.invalid"
+             class="p-error">Mot de passe réquis</small>
+
+
+    </td>
+  </tr>
+
+  <tr *ngIf="!idUser">
+    <td>Confirmer Mot de passe</td>
+    <td>
+      <p-password [(ngModel)]="confirmPwd" name="confirmPwd"
+                  [feedback]="false"
+                  [toggleMask]="true"
+                  #pwd2="ngModel" required
+                  [pattern]="user.password"></p-password>
+
+
+      <small *ngIf="f.submitted && pwd2.invalid"
+             class="p-error">
+        <span *ngIf="pwd2?.errors?.required">Confirmer mot de passe  réquis</span>
+        <span *ngIf="pwd2?.errors?.pattern">
+          Les mots de passe ne sont pas identiques
+        </span>
+
+      </small>
+
+    </td>
+  </tr>
+
+  <tr>
+    <td>Role</td>
+    <td>
+      <p-radioButton name="groupname"
+                     value="ROLE_ADMIN"
+                     label="Administrateur"
+                     [(ngModel)]="user.role"
+                     required #role="ngModel">
+
+      </p-radioButton>
+      <p-radioButton name="groupname"
+                     value="ROLE_USER"
+                     label="Utilisateur"
+                     [(ngModel)]="user.role"
+                     required #role="ngModel">
+
+      </p-radioButton>
+
+      <small *ngIf="f.submitted && role.invalid"
+             class="p-error">Role réquis</small>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <button pButton label="Annuler"
+              type="reset" (click)="annuler()"
+              class="p-button-danger" ></button>
+    </td>
+
+    <td>
+      <button type="submit"
+              pButton label="{{idUser? 'Modifier': 'Ajouter'}}"
+
+              class="{{idUser? 'p-button-warning': 'p-button-success'}}" ></button>
+
+
+    </td>
+  </tr>
+
+
+</table>
+</form>

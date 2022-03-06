@@ -1,0 +1,27 @@
+
+
+<div *ngxPermissionsOnly="['ROLE_ADMIN', 'ROLE_USER']"
+     style="float: right;">
+
+
+  <button pButton label="Modifier mot de passe"
+  routerLink="/users/change-password"></button>
+
+
+  <button pButton label="Déconnexion"
+  class="p-button-danger" (click)="logout()"></button>
+
+</div>
+
+<br>
+<br>
+
+
+<router-outlet></router-outlet>
+
+<p-confirmDialog
+  acceptLabel="Oui" rejectLabel="Non"
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle">
+</p-confirmDialog>
+<p-toast ></p-toast>
